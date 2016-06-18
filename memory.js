@@ -9,6 +9,35 @@ var currentPlayerIndex = 0;
 var states = ['tie', 'win', 'lose'];
 var totalFlipped = 0;
 var defaultSize = 2;
+var linksToPics = {
+    'A': 'https://goo.gl/4PB08c',
+    'B': 'https://goo.gl/IgvtkN',
+    'C': 'https://goo.gl/TWYyLy',
+    'D': 'http://goo.gl/TpNZAW',
+    'E': 'http://goo.gl/EEDR0N',
+    'F': 'http://goo.gl/95j5tp',
+    'G': 'http://goo.gl/WDGwYT',
+    'H': 'http://goo.gl/mw9LBA',
+    'I': 'http://goo.gl/G8R9AI',
+    'J': 'http://goo.gl/JjKqGe',
+    'K': 'http://goo.gl/Sy7cZq',
+    'L': 'http://goo.gl/6zdvXB',
+    'M': 'http://goo.gl/WkFsSp',
+    'N': 'http://goo.gl/QcGiCC',
+    'O': 'http://goo.gl/b8bbZO',
+    'P': 'http://goo.gl/UQ6U2K',
+    'Q': 'http://goo.gl/qegJJc',
+    'R': 'http://goo.gl/AFNGvx',
+    'S': 'http://goo.gl/CpSNKh',
+    'T': 'http://goo.gl/UdFsSx',
+    'U': 'https://goo.gl/33JQXR',
+    'V': 'http://goo.gl/lO0XGm',
+    'W': 'http://goo.gl/C9gajS',
+    'X': 'http://goo.gl/ylhdRD',
+    'Y': 'https://goo.gl/7btU4a',
+    'Z': 'http://goo.gl/FXMqG0'
+}
+
 
 function Player(name, score, state) {
     this.name = name;
@@ -104,11 +133,9 @@ var drawTable = function drawTable(n, m) {
 
 var flipCard = function () {
     var card = $(this);
-    $(card).prop('disabled', true);
+    $('.card').prop('disabled',true);
     var coord = getCoordinates($(this).attr('id'));
-
     flipped.push($(card));
-    $(card).prop('disabled', true);
     var showCard = function () {
         cardFlipCount++;
         if (cardFlipCount === 2) {
@@ -120,11 +147,13 @@ var flipCard = function () {
                 flipBack();
             }
         }
+        $('.card').prop('disabled',false);
     };
 
     var animationComplete = function () {
         $(card).css('backgroundColor', 'white');
         $(card).html(valArr[coord[0]][coord[1]]);
+        $(card).css('background-image', 'url(' + linksToPics[valArr[coord[0]][coord[1]]] + ')');
         $(card).animate({
             opacity: 1,
         }, 500, showCard);
@@ -178,7 +207,8 @@ var correctPair = function () {
 var flipBack = function () {
     for (var i = 0; i < flipped.length; i++) {
         $(flipped[i]).html('$');
-        $(flipped[i]).prop('disabled', false);
+        $('.board').prop('disabled', false);
+        $(flipped[i]).css('background-image', 'url()');
         $(flipped[i]).css('backgroundColor', bColor);
     }
     $('.announcement').html('No match');

@@ -45,6 +45,7 @@ h1, h4{
     width: 100px;
     height: 100px;
     background-color: #9d9d9d;
+    background-size: cover;
     margin: 20px;
     border: double;
     text-align: center;
